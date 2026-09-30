@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#15324f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FinOps Servizi" />
+  <meta name="description" content="Captura inteligente de despesas de tecnologia da Servizi." />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>FinOps Servizi</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">SERVIZI • FINOPS</div>
+      <h1>FinOps Servizi</h1>
+      <p>Captura inteligente de despesas de tecnologia</p>
+    </div>
+    <button id="installBtn" class="install-btn" hidden>Instalar app</button>
+  </header>
+
+  <main class="shell">
+    <section class="card" id="captureCard">
+      <h2>Nova despesa</h2>
+      <label for="texto">Descreva o lançamento</label>
+      <textarea id="texto" placeholder="Ex.: OpenAI 45 USD, Santander, 30/09/2026"></textarea>
+
+      <label class="upload" for="imagem">
+        <strong>Enviar print / foto</strong>
+        <span>Toque para escolher ou fotografar</span>
+        <input id="imagem" type="file" accept="image/*" capture="environment" />
+      </label>
+      <img id="preview" class="preview" alt="Prévia do comprovante" hidden />
+
+      <div class="actions two">
+        <button id="analyzeBtn" class="btn primary">Analisar com IA</button>
+        <button id="manualBtn" class="btn secondary">Lançamento manual</button>
+      </div>
+      <div id="captureStatus" class="status" hidden></div>
+    </section>
+
+    <section class="card" id="analysisCard" hidden>
+      <div class="section-head">
+        <div><span class="step">IA</span><h2>Revisar lançamento</h2></div>
+        <span id="analysisMeta" class="meta-pill"></span>
+      </div>
+      <div class="grid two">
+        <div><label for="aCompetence">Competência</label><input id="aCompetence" /></div>
+        <div><label for="aDate">Data</label><input id="aDate" placeholder="DD/MM/AAAA" /></div>
+      </div>
+      <div class="grid two">
+        <div><label for="aSupplier">Fornecedor</label><input id="aSupplier" /></div>
+        <div><label for="aSource">Fonte</label><input id="aSource" /></div>
+      </div>
+      <label for="aDescription">Descrição</label><input id="aDescription" />
+      <div class="grid three">
+        <div><label for="aBase">Base R$</label><input id="aBase" type="number" step="0.01" /></div>
+        <div><label for="aIof">IOF R$</label><input id="aIof" type="number" step="0.01" /></div>
+        <div><label for="aTotal">Total R$</label><input id="aTotal" type="number" step="0.01" /></div>
+      </div>
+      <div class="grid two">
+        <div><label for="aUsd">US$</label><input id="aUsd" type="number" step="0.01" /></div>
+        <div><label for="aProject">Projeto sugerido</label><input id="aProject" list="projects" /></div>
+      </div>
+      <label for="aNotes">Observações</label><textarea id="aNotes" class="small"></textarea>
+      <div id="duplicateStatus" class="status warn" hidden></div>
+      <div class="actions two">
+        <button id="approveBtn" class="btn success">Aprovar e lançar</button>
+        <button class="btn secondary newBtn">Novo</button>
+      </div>
+      <div id="analysisStatus" class="status" hidden></div>
+    </section>
+
+    <section class="card" id="manualCard" hidden>
+      <div class="section-head"><div><span class="step">MANUAL</span><h2>Lançamento simples</h2></div></div>
+      <label for="mDate">Data da compra</label><input id="mDate" placeholder="DD/MM/AAAA" inputmode="numeric" />
+      <label for="mDescription">O que foi comprado / como aparece na cobrança</label><input id="mDescription" placeholder="Ex.: OPENAI* CHATGPT CREDIT" />
+      <label>Moeda</label>
+      <div class="currency-toggle">
+        <label><input type="radio" name="currency" value="BRL" checked /><span>R$ Real</span></label>
+        <label><input type="radio" name="currency" value="USD" /><span>US$ Dólar</span></label>
+      </div>
+      <label for="mAmount">Valor da compra</label><input id="mAmount" type="number" min="0" step="0.01" inputmode="decimal" />
+      <label for="mProject">Projeto (opcional)</label><input id="mProject" list="projects" placeholder="Deixe vazio se não souber" />
+
+      <div class="calc-box">
+        <div><span>Competência automática</span><strong id="mCompetence">—</strong></div>
+        <div><span>Reembolso previsto</span><strong id="mReimbursement">—</strong></div>
+        <div id="mFxRow" hidden><span>Câmbio estimado</span><strong id="mFx">—</strong></div>
+        <div id="mIofRow" hidden><span>IOF estimado</span><strong id="mIof">—</strong></div>
+        <div class="total"><span>Total reembolsável</span><strong id="mTotal">R$ 0,00</strong></div>
+        <p id="mHint">Fornecedor e fonte serão identificados automaticamente.</p>
+      </div>
+
+      <div class="actions two">
+        <button id="manualApproveBtn" class="btn success">Aprovar e lançar</button>
+        <button class="btn secondary newBtn">Novo</button>
+      </div>
+      <div id="manualStatus" class="status" hidden></div>
+    </section>
+
+    <datalist id="projects"></datalist>
+    <footer><span id="onlineDot" class="dot"></span><span id="onlineText">Online</span> • Base oficial: Google Sheets</footer>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+name: Validate and deploy Cloudflare
+on:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
+  configuration:
+    needs: validate
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.credentials.outputs.ready }}
+    steps:
+      - id: credentials
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CF_TOKEN" ] && [ -n "$CF_ACCOUNT" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Código validado. Publicação pendente: configure CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID." >> "$GITHUB_STEP_SUMMARY"
+          fi
+  deploy:
+    needs: [validate, configuration]
+    if: needs.configuration.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Deploy production
+        if: github.ref == 'refs/heads/main'
+        run: npm run deploy -- --keep-vars
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Deploy staging
+        if: github.ref == 'refs/heads/develop'
+        run: npm run deploy:staging -- --keep-vars
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

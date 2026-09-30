@@ -1,0 +1,6 @@
+OPENAI_API_KEY=sk-...
+GOOGLE_CLIENT_EMAIL=servizi-finops@seu-projeto.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+ALLOWED_EMAIL=seu-email@exemplo.com
+CF_ACCESS_TEAM_DOMAIN=https://sua-equipe.cloudflareaccess.com
+CF_ACCESS_AUD=aud-da-aplicacao-finops

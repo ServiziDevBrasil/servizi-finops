@@ -1,0 +1,21 @@
+{
+  "name": "servizi-finops",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/worker.js && node --check src/google.js && node --check src/rules.js && node --check src/access.js && node --check public/app.js && node --check public/sw.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "build:check": "wrangler deploy --dry-run && wrangler deploy --dry-run --env staging"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260930.2",
+    "wrangler": "4.145.0"
+  },
+  "dependencies": {
+    "jose": "6.2.12"
+  }
+}
