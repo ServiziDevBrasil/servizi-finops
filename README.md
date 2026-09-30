@@ -1,6 +1,8 @@
-# Servizi FinOps PWA
+# M.A.E Financeiro
 
-PWA do FinOps Servizi. Substitui a interface do Google Apps Script por uma aplicação instalável, mantendo o Google Sheets como base oficial nesta fase da migração.
+PWA de despesas, comprovantes e reembolsos da Servizi, preparada para futura incorporação ao M.A.E — Matriz de Acompanhamento Estratégico. Substitui a interface do Google Apps Script por uma aplicação instalável, mantendo o Google Sheets como base oficial nesta fase da migração.
+
+A identidade visual reutiliza o monograma original do M.A.E em verde-esmeralda, com um símbolo de dólar. Os SVGs editáveis ficam em `public/icons/mae-financeiro.svg` e `public/icons/mae-financeiro-maskable.svg`. O repositório e os Workers continuam com os identificadores técnicos `servizi-finops` e `servizi-finops-staging`.
 
 ## Funcionalidades V1
 
@@ -89,7 +91,7 @@ Depois de validar a PWA, a camada de armazenamento pode migrar de Google Sheets 
 
 ## Estado de entrega e validação
 
-Código da PWA pronto para importação no GitHub. A publicação funcional precisa de configuração externa de Cloudflare, Access, Google service account, permissões da planilha e chave OpenAI. Não há credenciais reais no repositório. Testes locais usam serviços simulados; não substituem validação live de leitura/gravação na planilha.
+A interface e os arquivos de instalação estão publicados em https://servizi-finops.dev-sbtechnology.workers.dev/. A operação financeira precisa de configuração externa de Access, Google service account, permissões da planilha e chave OpenAI. Não há credenciais reais no repositório. Testes locais usam serviços simulados; não substituem validação live de leitura/gravação na planilha.
 
 ## Referências
 

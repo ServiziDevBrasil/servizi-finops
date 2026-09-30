@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="M.A.E Financeiro">
+  <rect width="192" height="192" rx="42" fill="#047857"/>
+  <!-- Original M.A.E monogram, repositioned to leave room for the financial badge. -->
+  <path d="M38 139V52h25l33 43 33-43h25v87h-25V91l-26 34h-14L63 91v48H38Z" transform="translate(-8 -10)" fill="#fff"/>
+  <circle cx="151" cy="157" r="23" fill="#fde68a"/>
+  <path d="M160 147c-3-5-14-7-17-1-5 9 18 7 17 16-1 8-14 10-19 3M151 139v35" fill="none" stroke="#047857" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

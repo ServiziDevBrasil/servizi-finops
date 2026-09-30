@@ -1,4 +1,4 @@
-# ADR-0001 — PWA FinOps em Cloudflare Worker
+# ADR-0001 — PWA M.A.E Financeiro em Cloudflare Worker
 
 ## Decisão
 

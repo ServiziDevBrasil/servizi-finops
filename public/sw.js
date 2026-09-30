@@ -1,6 +1,6 @@
 const CACHE_PREFIX = "servizi-finops-";
-const CACHE = `${CACHE_PREFIX}v2`;
-const SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png"];
+const CACHE = `${CACHE_PREFIX}v3`;
+const SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest", "/icons/mae-financeiro.svg", "/icons/mae-financeiro-192.png", "/icons/mae-financeiro-512.png", "/icons/mae-financeiro-maskable-512.png"];
 
 async function refresh(request) {
   const response = await fetch(request);
