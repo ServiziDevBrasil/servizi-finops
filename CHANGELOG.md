@@ -6,6 +6,7 @@
 - Monograma original do M.A.E em verde-esmeralda, com símbolo de dólar.
 - Ícones SVG e PNG para navegador e instalação, com variante maskable.
 - Cores da interface alinhadas à identidade financeira e cache offline atualizado.
+- Configuração de Worker Previews para publicação automática de branches, com escrita financeira desabilitada.
 
 ## 0.1.0 — 2026-09-30
 
