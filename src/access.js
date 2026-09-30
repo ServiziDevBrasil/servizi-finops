@@ -19,9 +19,9 @@ export async function requireAccess(request, env) {
       requiredClaims: ["exp", "iat", "email"],
     });
     if (String(payload.email || "").toLowerCase() !== allowed) {
-      throw new Error("Usuário sem permissão para acessar o FinOps.");
+      throw new Error("Usuário sem permissão para acessar o M.A.E Financeiro.");
     }
   } catch {
-    throw new Error("Acesso inválido ou sem permissão para acessar o FinOps.");
+    throw new Error("Acesso inválido ou sem permissão para acessar o M.A.E Financeiro.");
   }
 }

@@ -1,6 +1,8 @@
-# Servizi FinOps PWA
+# M.A.E Financeiro
 
-PWA do FinOps Servizi. Substitui a interface do Google Apps Script por uma aplicação instalável, mantendo o Google Sheets como base oficial nesta fase da migração.
+PWA de despesas, comprovantes e reembolsos da Servizi, preparada para futura incorporação ao M.A.E — Matriz de Acompanhamento Estratégico. Substitui a interface do Google Apps Script por uma aplicação instalável, mantendo o Google Sheets como base oficial nesta fase da migração.
+
+A identidade visual reutiliza o monograma original do M.A.E em verde-esmeralda, com um símbolo de dólar. Os SVGs editáveis ficam em `public/icons/mae-financeiro.svg` e `public/icons/mae-financeiro-maskable.svg`. O repositório e os Workers continuam com os identificadores técnicos `servizi-finops` e `servizi-finops-staging`.
 
 ## Funcionalidades V1
 
@@ -79,8 +81,10 @@ O cache offline contém apenas arquivos da interface. APIs financeiras, resposta
 - branches curtas + PR
 - CI roda `check` + testes + build dry-run de produção/homologação em PRs e antes de qualquer deploy.
 - Versões npm fixas e `package-lock.json` tornam o build reproduzível.
-- Sem `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` nos secrets do GitHub, a publicação é marcada como pendente e o deploy é pulado.
-- Depois de configurar os secrets, use Actions > Validate and deploy Cloudflare > Run workflow.
+- O Worker está conectado ao GitHub por Cloudflare Workers Builds: `main` publica produção e outras branches geram prévias. Use `npm run check && npm test` como build command e `npx wrangler deploy --keep-vars` como deploy command.
+- O comando de prévia é `npx wrangler preview`; o bloco `previews` no Wrangler mantém escrita desabilitada e autenticação obrigatória. Os segredos das prévias são configurados separadamente, sem herdar os segredos de produção.
+- A publicação por GitHub Actions é uma alternativa: sem `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID`, apenas esse job é pulado; o deploy nativo do Cloudflare continua funcionando.
+- Evite ativar as duas rotas de publicação simultaneamente. Para usar Actions, configure os secrets, desative a publicação nativa e use Actions > Validate and deploy Cloudflare > Run workflow.
 - O deploy preserva variáveis configuradas no dashboard com `--keep-vars`.
 
 ## Próxima etapa
@@ -89,9 +93,10 @@ Depois de validar a PWA, a camada de armazenamento pode migrar de Google Sheets 
 
 ## Estado de entrega e validação
 
-Código da PWA pronto para importação no GitHub. A publicação funcional precisa de configuração externa de Cloudflare, Access, Google service account, permissões da planilha e chave OpenAI. Não há credenciais reais no repositório. Testes locais usam serviços simulados; não substituem validação live de leitura/gravação na planilha.
+A interface e os arquivos de instalação estão publicados em https://servizi-finops.dev-sbtechnology.workers.dev/. A operação financeira precisa de configuração externa de Access, Google service account, permissões da planilha e chave OpenAI. Não há credenciais reais no repositório. Testes locais usam serviços simulados; não substituem validação live de leitura/gravação na planilha.
 
 ## Referências
 
 - [Cloudflare Access: validar JWT](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/)
 - [Cloudflare Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/)
+- [Cloudflare Worker Previews: configuração](https://developers.cloudflare.com/workers/previews/configuration/)

@@ -1,5 +1,13 @@
 # Changelog
 
+## Identidade M.A.E Financeiro — 2026-09-30
+
+- Nome M.A.E Financeiro na interface, aba do navegador e instalação do PWA.
+- Monograma original do M.A.E em verde-esmeralda, com símbolo de dólar.
+- Ícones SVG e PNG para navegador e instalação, com variante maskable.
+- Cores da interface alinhadas à identidade financeira e cache offline atualizado.
+- Configuração de Worker Previews para publicação automática de branches, com escrita financeira desabilitada.
+
 ## 0.1.0 — 2026-09-30
 
 - Importação da PWA FinOps Servizi com captura manual, texto e imagem, Sheets e OpenAI.
